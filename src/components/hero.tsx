@@ -5,8 +5,12 @@ import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Hero (Fase 1). La firma `Bridging legacy systems and modern AI` es la pieza
- * central y se descifra una vez al cargar. Copy real de CONTEXT.md §4.
+ * Hero definitivo (Fase 1) — síntesis de las tres variantes:
+ * · organización y flujo alineado a la izquierda (variante A),
+ * · nombre recalcado en IBM Plex Serif como h1 (variante B),
+ * · la firma se descifra dentro de una "línea de terminal" con prompt y
+ *   cursor en latón (variante C), sin la caja pesada.
+ * Copy real de CONTEXT.md §4. Un solo patrón de movimiento aquí: el descifrado.
  */
 export function Hero() {
   return (
@@ -17,19 +21,33 @@ export function Hero() {
       <AmbientGrid />
 
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-        {/* Identidad */}
-        <p className="eyebrow">Miguel Ángel Durán Muñoz</p>
-        <p className="mt-2 font-mono text-sm text-muted-foreground">
-          {siteConfig.role}
-        </p>
+        {/* Rol */}
+        <p className="eyebrow">{siteConfig.role}</p>
 
-        {/* La firma que se descifra */}
-        <h1 className="mt-8 max-w-4xl text-[clamp(1.75rem,6vw,3.5rem)] font-medium leading-[1.08] tracking-tight text-paper">
-          <DecryptedText text={siteConfig.tagline} />
+        {/* Nombre — recalcado, es el h1 */}
+        <h1 className="mt-4 max-w-4xl font-serif text-[clamp(2.25rem,7vw,4.25rem)] font-medium leading-[1.03] tracking-tight text-paper">
+          Miguel Ángel Durán Muñoz
         </h1>
 
+        {/* La firma que se descifra, en una línea de terminal */}
+        <div className="mt-7 flex max-w-full items-start gap-3 rounded-lg border border-line bg-ink-2/50 px-4 py-3 sm:w-fit">
+          <span
+            aria-hidden="true"
+            className="mt-0.5 select-none font-mono text-brass"
+          >
+            ❯
+          </span>
+          <p className="font-mono text-[clamp(0.9rem,2.6vw,1.35rem)] leading-snug text-paper">
+            <DecryptedText text={siteConfig.tagline} />
+            <span
+              aria-hidden="true"
+              className="ml-0.5 inline-block h-[1.05em] w-[0.5ch] translate-y-[0.15em] bg-brass/80"
+            />
+          </p>
+        </div>
+
         {/* Titular (CONTEXT.md §4) */}
-        <p className="mt-6 max-w-2xl font-serif text-xl leading-snug text-paper/85 sm:text-2xl">
+        <p className="mt-7 max-w-2xl font-serif text-xl leading-snug text-paper/85 sm:text-2xl">
           Mainframe{" "}
           <span className="text-muted-foreground">(COBOL · DB2 · z/OS)</span>
           {" + "}
@@ -93,9 +111,7 @@ function CtaIcon({
     <a
       href={href}
       aria-label={label}
-      {...(external
-        ? { target: "_blank", rel: "noopener noreferrer" }
-        : {})}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="inline-flex size-11 items-center justify-center rounded-lg border border-line text-muted-foreground transition-colors hover:border-brass/40 hover:text-brass focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       {children}
