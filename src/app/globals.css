@@ -1,0 +1,196 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Terminal calm — sistema de diseño (fuente de verdad: CONTEXT.md §5).
+  Web dark-first: es la inversión del CV claro. Un único acento: latón.
+  Los valores de color son los hex exactos del CV para que sitio + CV
+  se sientan una sola marca.
+*/
+
+@theme inline {
+  /* Fuentes IBM Plex (cargadas con next/font en layout.tsx) */
+  --font-sans: var(--font-plex-sans);
+  --font-serif: var(--font-plex-serif);
+  --font-display: var(--font-plex-serif);
+  --font-mono: var(--font-plex-mono);
+
+  /* Paleta de marca expuesta como utilidades (bg-ink, text-brass, border-line…) */
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-paper: var(--paper);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-line: var(--line);
+
+  /* Mapeo semántico de shadcn → paleta Terminal calm */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Radios */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* Escala tipográfica editorial */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.18em;
+  --text-display: clamp(2.75rem, 6vw, 4.75rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.02em;
+
+  /* Sombras contenidas (dark editorial: casi imperceptibles) */
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.03) inset,
+    0 12px 34px -18px rgb(0 0 0 / 0.7);
+  --shadow-ambient: 0 24px 70px -30px rgb(0 0 0 / 0.8);
+}
+
+/*
+  Dark-first: el tema base ES el oscuro. Definimos los valores de marca en
+  :root y los espejamos en .dark por si algún componente usa variantes dark:.
+*/
+:root {
+  /* Tokens de marca crudos (CONTEXT.md §5) */
+  --ink: #0e2033; /* fondo principal */
+  --ink-2: #0a1826; /* fondo más profundo / secciones */
+  --ink-3: #14273a; /* superficies / cards */
+  --paper: #f6f3ed; /* texto principal */
+  --brass: #c6a24c; /* acento único */
+  --brass-soft: #e7d6a8; /* acento tenue */
+  --line: #213649; /* divisores */
+
+  --radius: 0.5rem;
+
+  /* Semánticos */
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --card: var(--ink-3);
+  --card-foreground: var(--paper);
+  --popover: var(--ink-3);
+  --popover-foreground: var(--paper);
+  --primary: var(--brass);
+  --primary-foreground: #0a1826; /* texto oscuro sobre latón */
+  --secondary: var(--ink-3);
+  --secondary-foreground: var(--paper);
+  --muted: var(--ink-2);
+  --muted-foreground: #8598ab; /* texto secundario sobre ink */
+  --accent: var(--ink-3);
+  --accent-foreground: var(--brass-soft);
+  --destructive: oklch(0.62 0.18 25); /* funcional, uso mínimo; no es acento */
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brass); /* foco de teclado visible en latón */
+}
+
+.dark {
+  --ink: #0e2033;
+  --ink-2: #0a1826;
+  --ink-3: #14273a;
+  --paper: #f6f3ed;
+  --brass: #c6a24c;
+  --brass-soft: #e7d6a8;
+  --line: #213649;
+
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --card: var(--ink-3);
+  --card-foreground: var(--paper);
+  --popover: var(--ink-3);
+  --popover-foreground: var(--paper);
+  --primary: var(--brass);
+  --primary-foreground: #0a1826;
+  --secondary: var(--ink-3);
+  --secondary-foreground: var(--paper);
+  --muted: var(--ink-2);
+  --muted-foreground: #8598ab;
+  --accent: var(--ink-3);
+  --accent-foreground: var(--brass-soft);
+  --destructive: oklch(0.62 0.18 25);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brass);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    /* Compensa la nav fija al saltar a anclas */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv05";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco de teclado visible (suelo de accesibilidad AA) */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::selection {
+    background: var(--brass);
+    color: #0a1826;
+  }
+}
+
+/* Utilidades de marca ligeras */
+@layer utilities {
+  /* Etiqueta/eyebrow mono en versalitas espaciadas */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    line-height: var(--text-eyebrow--line-height);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+}
+
+/*
+  Contención de movimiento (CONTEXT.md §6): sin permiso de movimiento,
+  todo se detiene y el contenido aparece ya en su estado final.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
