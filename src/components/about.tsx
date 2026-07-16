@@ -1,10 +1,23 @@
 import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
 
 /**
- * About (Fase 2). Tres párrafos del copy real de CONTEXT.md §4, en primera
- * persona (voz "working engineer honesto", §3). Placeholder elegante para la
- * foto: iniciales "MD" en latón sobre ink (CONTEXT.md §12).
+ * About (Fase 2, rediseñada). Refinamiento "Terminal calm": encabezado
+ * numerado, rejilla asimétrica (columna de perfil = retrato + panel de datos
+ * en mono que rima con la línea de terminal del hero; columna de bio con lead
+ * destacado). Copy real de CONTEXT.md §4, primera persona. Sin métricas
+ * inventadas ni nombres de cliente/empleador.
  */
+
+// Datos seguros y reales (CONTEXT.md §4): sector y datos personales, nunca
+// nombres de cliente/empleador.
+const FACTS = [
+  { k: "Ubicación", v: "Las Palmas de G.C." },
+  { k: "Modo", v: "100% remoto" },
+  { k: "Sector", v: "Banca y seguros" },
+  { k: "Idiomas", v: "ES · EN B2 · FR" },
+] as const;
+
 export function About() {
   return (
     <section
@@ -13,53 +26,57 @@ export function About() {
       aria-labelledby="about-title"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Reveal>
-          <p className="eyebrow">Sobre mí</p>
-          <h2
-            id="about-title"
-            className="mt-4 max-w-2xl font-serif text-3xl font-medium leading-tight tracking-tight text-paper sm:text-4xl"
-          >
-            Un perfil híbrido poco común
-          </h2>
-        </Reveal>
+        <SectionHeading
+          index="01"
+          kicker="Sobre mí"
+          title="Convierto el legacy en ventaja competitiva"
+          id="about-title"
+        />
 
-        <div className="mt-12 grid items-start gap-10 md:grid-cols-[minmax(0,18rem)_1fr] md:gap-16">
-          {/* Placeholder de foto */}
-          <Reveal delay={0.05}>
-            <PhotoPlaceholder />
-          </Reveal>
+        <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14">
+          {/* Columna de perfil */}
+          <div className="space-y-6 lg:col-span-4">
+            <Reveal>
+              <PhotoPlaceholder />
+            </Reveal>
+            <Reveal delay={0.06}>
+              <FactsPanel />
+            </Reveal>
+          </div>
 
-          {/* Bio */}
-          <div className="max-w-2xl space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          {/* Columna de bio */}
+          <div className="lg:col-span-8">
             <Reveal delay={0.1}>
-              <p>
+              <p className="max-w-2xl font-serif text-xl leading-relaxed text-paper/90 sm:text-2xl sm:leading-relaxed">
                 Soy ingeniero de software especializado en sistemas mainframe
-                críticos —{" "}
-                <span className="text-paper">COBOL, DB2, JCL, z/OS</span> — en
-                banca y seguros, donde desarrollo y evoluciono flujos batch de
-                alta criticidad a partir de análisis funcional.
+                críticos — COBOL, DB2, JCL, z/OS — en banca y seguros, donde
+                desarrollo y evoluciono flujos batch de alta criticidad a partir
+                de análisis funcional.
               </p>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p>
-                En paralelo construyo productos propios en stack moderno y
-                aplico IA de forma práctica: tengo{" "}
-                <span className="font-medium text-paper">Memory Map</span>{" "}
-                desplegado en producción y desarrollo{" "}
-                <span className="font-medium text-paper">KnowFlow</span>, una
-                herramienta que usa LLMs para ayudar a devs a entender COBOL
-                heredado. También uso IA en mi trabajo diario para acelerar el
-                análisis: mapeo de datos y diagramas desde copybooks.
-              </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p>
-                Aprendo rápido y me interesa el punto exacto donde los sistemas
-                legacy críticos se encuentran con el desarrollo moderno y la IA.
-                Estoy abierto a roles remotos donde esa combinación aporte
-                valor.
-              </p>
-            </Reveal>
+
+            <div className="mt-8 max-w-2xl space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              <Reveal delay={0.15}>
+                <p>
+                  En paralelo construyo productos propios en stack moderno y
+                  aplico IA de forma práctica: tengo{" "}
+                  <span className="font-medium text-paper">Memory Map</span>{" "}
+                  desplegado en producción y desarrollo{" "}
+                  <span className="font-medium text-paper">KnowFlow</span>, una
+                  herramienta que usa LLMs para ayudar a devs a entender COBOL
+                  heredado. También uso IA en mi trabajo diario para acelerar el
+                  análisis: mapeo de datos y diagramas desde copybooks.
+                </p>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p>
+                  Aprendo rápido y me interesa el punto exacto donde los
+                  sistemas legacy críticos se encuentran con el desarrollo
+                  moderno y la IA. Estoy abierto a roles remotos donde esa
+                  combinación aporte valor.
+                </p>
+              </Reveal>
+            </div>
           </div>
         </div>
       </div>
@@ -68,13 +85,40 @@ export function About() {
 }
 
 /**
- * Placeholder de retrato: iniciales "MD" en latón sobre ink, con una etiqueta
- * mono discreta que deja claro que es intencional hasta tener la foto real.
+ * Panel de datos en mono, con cabecera tipo comentario — rima con la línea de
+ * terminal del hero. Claves en latón, valores en paper.
+ */
+function FactsPanel() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-line bg-ink-2/40">
+      <div className="border-b border-line px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/70">
+        // perfil
+      </div>
+      <dl className="divide-y divide-line/70">
+        {FACTS.map((f) => (
+          <div
+            key={f.k}
+            className="flex items-baseline justify-between gap-4 px-4 py-3"
+          >
+            <dt className="font-mono text-xs uppercase tracking-wide text-brass/90">
+              {f.k}
+            </dt>
+            <dd className="text-right font-mono text-xs text-paper/85">{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+/**
+ * Placeholder de retrato: iniciales "MD" en latón sobre ink, con cantoneras
+ * en latón y una etiqueta mono discreta (CONTEXT.md §12). Formato 4:5.
  */
 function PhotoPlaceholder() {
   return (
-    <figure className="relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-xl border border-line bg-gradient-to-b from-ink-3 to-ink-2 shadow-card">
-      {/* Rejilla tenue de fondo */}
+    <figure className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-line bg-gradient-to-b from-ink-3 to-ink-2 shadow-card">
+      {/* Rejilla tenue */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.4]"
@@ -88,6 +132,12 @@ function PhotoPlaceholder() {
             "radial-gradient(ellipse 70% 70% at 50% 45%, black 10%, transparent 80%)",
         }}
       />
+      {/* Cantoneras */}
+      <Corner className="left-3 top-3 border-l border-t" />
+      <Corner className="right-3 top-3 border-r border-t" />
+      <Corner className="bottom-10 left-3 border-b border-l" />
+      <Corner className="bottom-10 right-3 border-b border-r" />
+
       <div className="absolute inset-0 flex items-center justify-center">
         <span className="font-serif text-7xl font-medium tracking-tight text-brass">
           MD
@@ -98,5 +148,14 @@ function PhotoPlaceholder() {
         <span className="text-muted-foreground/60">foto · pronto</span>
       </figcaption>
     </figure>
+  );
+}
+
+function Corner({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`absolute size-4 border-brass/50 ${className}`}
+    />
   );
 }

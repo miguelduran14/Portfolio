@@ -1,5 +1,6 @@
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { siteConfig } from "@/lib/site";
 
@@ -15,14 +16,13 @@ export function Contact() {
       aria-labelledby="contact-title"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Reveal>
-          <p className="eyebrow">Contacto</p>
-          <h2
-            id="contact-title"
-            className="mt-4 max-w-2xl font-serif text-3xl font-medium leading-tight tracking-tight text-paper sm:text-4xl"
-          >
-            Abierto a oportunidades
-          </h2>
+        <SectionHeading
+          index="05"
+          kicker="Contacto"
+          title="Abierto a oportunidades"
+          id="contact-title"
+        />
+        <Reveal delay={0.04}>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             100% remoto. Si buscas a alguien que entienda el legacy crítico y
             construya moderno con IA, escríbeme.
