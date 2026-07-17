@@ -27,7 +27,6 @@ export function About() {
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          index="01"
           kicker="Sobre mí"
           title="Convierto el legacy en ventaja competitiva"
           id="about-title"
@@ -48,32 +47,30 @@ export function About() {
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="max-w-2xl font-serif text-xl leading-relaxed text-paper/90 sm:text-2xl sm:leading-relaxed">
-                Soy ingeniero de software especializado en sistemas mainframe
+                Rising Software Engineer especializado en sistemas mainframe
                 críticos — COBOL, DB2, JCL, z/OS — en banca y seguros, donde
                 desarrollo y evoluciono flujos batch de alta criticidad a partir
                 de análisis funcional.
               </p>
             </Reveal>
 
-            <div className="mt-8 max-w-2xl space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <div className="mt-8 grid gap-6 text-base leading-relaxed text-muted-foreground sm:grid-cols-2 sm:gap-8">
               <Reveal delay={0.15}>
                 <p>
                   En paralelo construyo productos propios en stack moderno y
                   aplico IA de forma práctica: tengo{" "}
                   <span className="font-medium text-paper">Memory Map</span>{" "}
-                  desplegado en producción y desarrollo{" "}
-                  <span className="font-medium text-paper">KnowFlow</span>, una
-                  herramienta que usa LLMs para ayudar a devs a entender COBOL
-                  heredado. También uso IA en mi trabajo diario para acelerar el
-                  análisis: mapeo de datos y diagramas desde copybooks.
+                  en producción y desarrollo{" "}
+                  <span className="font-medium text-paper">KnowFlow</span>, que
+                  usa LLMs para entender COBOL heredado.
                 </p>
               </Reveal>
               <Reveal delay={0.2}>
                 <p>
-                  Aprendo rápido y me interesa el punto exacto donde los
-                  sistemas legacy críticos se encuentran con el desarrollo
-                  moderno y la IA. Estoy abierto a roles remotos donde esa
-                  combinación aporte valor.
+                  También uso IA en mi día a día para acelerar el análisis
+                  —mapeo de datos y diagramas desde copybooks— y me interesa el
+                  punto donde el legacy crítico se encuentra con lo moderno.
+                  Abierto a roles remotos.
                 </p>
               </Reveal>
             </div>

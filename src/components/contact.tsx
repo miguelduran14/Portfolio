@@ -17,7 +17,6 @@ export function Contact() {
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          index="05"
           kicker="Contacto"
           title="Abierto a oportunidades"
           id="contact-title"
